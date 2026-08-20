@@ -1,4 +1,4 @@
-export default function Form() {
+export default function Form(props) {
   return (
     <form className="flex gap-3 justify-center flex-col md:flex-row">
       <input
@@ -6,8 +6,13 @@ export default function Form() {
         type="text"
         aria-label="add ingredient"
         placeholder="e.g. oregano"
+        name="ingredient"
+        id="ingredient"
       />
-      <button className="flex-1 bg-zinc-900 text-white px-9 py-2 rounded-lg dark:text-black dark:bg-olive-100">
+      <button
+        onClick={props.addIngredient}
+        className="flex-1 bg-zinc-900 text-white px-9 py-2 rounded-lg font-sans dark:text-black dark:bg-olive-100"
+      >
         + Add ingredient
       </button>
     </form>
