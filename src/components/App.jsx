@@ -6,11 +6,16 @@ import { useState } from "react";
 export default function App() {
   const [ingredientsList, setIngredientsList] = useState([]);
 
-  function addIngredient(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    const newIngredient = document.getElementById("ingredient").value;
-    setIngredientsList((i) => [...i, newIngredient]);
-    document.getElementById("ingredient").value = "";
+    const formData = new FormData(event.currentTarget);
+    const newIngredient = formData.get("ingredient");
+
+    if (newIngredient && newIngredient.trim() !== "") {
+      setIngredientsList((i) => [...i, newIngredient]);
+    }
+
+    event.currentTarget.reset();
   }
 
   return (
@@ -18,7 +23,7 @@ export default function App() {
       <div className="w-3xl rounded-none min-h-full md:m-auto md:rounded-2xl overflow-hidden text-black bg-olive-100 dark:text-olive-100 dark:bg-zinc-800">
         <Header />
         <main className="py-10 px-4 md:py-17.5 md:px-16 flex flex-col gap-12">
-          <Form addIngredient={addIngredient} />
+          <Form handleSubmit={handleSubmit} />
           <Ingredients ingredientsList={ingredientsList} />
         </main>
       </div>
